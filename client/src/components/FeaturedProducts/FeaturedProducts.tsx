@@ -1,9 +1,14 @@
+import { useEffect } from 'react';
+import { useFetch } from '../../hooks/useFetch';
+import { Card, IProductItem } from '../Card/Card';
 import styles from './FeaturedProducts.module.scss'
 
 export const FeaturedProducts = ({ type }: { type: string }) => {
-//   const { data, loading, error } = useFetch(
-//     `/products?populate=*&[filters][type][$eq]=${type}`
-//   );
+  const { data, loading, error } = useFetch<IProductItem[]>(
+    `/products?populate=*&[filters][type][$eq]=${type}`
+  );
+
+  useEffect(() => console.log(data), [data])
 
   return (
     <div className={styles.featuredProducts}>
@@ -18,11 +23,11 @@ export const FeaturedProducts = ({ type }: { type: string }) => {
         </p>
       </div>
       <div className={styles.bottom}>
-        {/* {error
+        {error
           ? "Something went wrong!"
           : loading
           ? "loading"
-          : data?.map((item) => <Card item={item} key={item.id} />)} */}
+          : data?.map((item) => <Card item={item} key={item.id} />)}
       </div>
     </div>
   );
